@@ -1,0 +1,810 @@
+Q1. Create EC2 instance
+1. Sign into AWS management Console
+2. Once logged in, click on services at the top left corner and selecting the EC2 from the list of services
+3. Go to EC2 and Click to the instances
+4. Click on "launch instances" button
+5. Give the name of instance "Abhi1"
+6. Choose an Amazon machine image or you can also choose browse more AMIs option
+7. Choose AMI image as you need (i.e. Amazon Linux 2023 AMI / Windows etc.)
+8. Then choose an instance type as your requirements (i.e. t2.micro,t3.micro ......)
+10. Create new key pair for login your machine
+11. Then go to the network settings
+12. Configure security group:-
+     - Allow SSH traffics from anywhere
+     - Allow HTTP traffic from the internet
+13. Configure storage as per your need
+14. Review your settings and configuration
+15. Then click on "Lunch Instance" button
+Connect window:-
+1. Retrieve Windows instance public IPv4
+2. Use Remote Desktop Protocol(RDP)
+3. Connect to windows instance
+4. Access Windows instance
+-----------------------------------------------------------------------------------------------------------------------------------
+Q2. Create Amazon S3 Store and retrieve any amount of data from anywhere
+Step:-  
+1. Sign into AWS Management Console
+2. once logged, then click on services at left corner and selecting the S3 from list of services
+3. Click on create bucket
+4. Choose AWS Region
+5. Then Select the Bucket type and choose option general purpose
+6. Given the unique name of bucket (i.e. "Abhigupta123")
+7. Configure public block access setting
+      - Choose the appropriate settings to block public access. It’s recommended to block all public access unless you explicitly need your 		bucket to be publicly accessible.
+8. Configure bucket Versioning
+	- You can enable versioning to keep multiple versions of an object in one bucket.
+9. Review and Create
+	- Review your settings and configuration.
+	- Click on the "Create bucket" button.
+10. After creating bucket click on it and Configure Bucket Policy and Permissions
+     - Go to the "Permissions" tab in your bucket.
+     - click on edit button
+     - go to policy section then click on policy generator
+     - select the policy type and choose s3 bucket policy
+     - Configure add Statements
+	 - Select Type of policy:- S3 Bucket Policy
+         - choose principal :- *
+         - and select action :- GetObject from dropdown menu
+         - Put ARN :- arn:aws:s3:::abhigupta123/*
+         - After that click Add Statement
+         - And Click on Generate Policy
+         - Once generate policy code and copy the code and paste on bucket policy in previous tab 
+11. After that Click on Save Changes
+12. Go to the bucket dashboard and click on the your bucket name 
+13. click on the upload button and upload your file, photo, video and other.
+14. click on uploaded file name and also access your data from over internet through your object link.
+-----------------------------------------------------------------------------------------------------------------------------------
+Q3. Create Cloud Watch 
+Steps:- 
+1. Sign into AWS management Console
+2. once logged in, click on services at the top left corner and search the CloudWatch and select the CloudWatch from the list of services
+3. Go to cloud watch dashboard and click on the alarms and choose in alarm
+4. Before creating alarm you must have to an EC2 instance
+4. click on "create alarm" button
+5. Now select matric 
+	- You select EC2 below the browse
+	- After that choose Per-Instance Metrics
+	- After that choose matric name "CPU Utilization".
+	- Click the "select" button
+6. Copy EC2 instance id just created and paste on the matric instance input box
+7. you can reduce average time period (i.e. 1 minute)
+8. choose Threshold type
+9. Define the alarm condition 
+	- Select Whenever CPU Utilization is threshold value >= 70%
+	- Define the threshold value (70)
+10. Choose state trigger 
+11. Define the SNS (Simple Notification Service)
+	- Create new topic
+	- Give the name of topic
+	- Write the correct Email that will receive the notification
+	- Click on "Create topic" button
+12. Choose EC2 Action
+	- Choose action (stop , terminate and reboot the instance)
+13. Provide the alarm name 
+14. Review your configure settings and click on "create alarm" button.
+15. After create alarm, you have received a mail for confirm subscription. you confirm it.
+16. after that whenever EC2 instance Threshold value > = 70% . you have got a mail for confirmation. 
+ -----------------------------------------------------------------------------------------------------------------------------------
+Q4. how to create active directory in AWS
+Step 1: Open the AWS Directory Service Console
+1. Sign in to the AWS Management Console.
+2. Navigate to Services and select Directory Service.
+Step 2: Launch a Directory
+1. Click on "Set up directory".
+Step 3: Choose Directory Type
+	1. Select Directory Type:
+	- Choose AWS Managed Microsoft AD or Microsoft AD Connector.
+ 	- AWS Managed Microsoft AD provides a fully managed Microsoft Active Directory service.
+	- Microsoft AD Connector allows you to connect your on-premises Active Directory to AWS services.
+	- Choose the appropriate option based on your requirements.
+	- Click Next.
+Step 4: Configure Directory
+	1. Directory Details:
+	- Enter the Directory DNS name.
+	- Choose VPC Settings: Select the VPC where you want to launch the directory.
+	- Choose Subnet Settings: Select the subnets in which the domain controllers will be placed.
+	- Choose Directory Size: Select the desired size (small, large, or multi-AZ).
+	- Enter Directory Admin Password.
+	- Click Next.
+Step 5: Review and Launch
+	1. Review Configuration:
+	- Review the directory configuration settings.
+	- Click Create directory.
+Step 6: Wait for Directory Creation
+	1. Wait for Directory Creation:
+	- AWS will create your directory. This may take several minutes.
+Step 7: Access and Use the Directory
+	1. Access Directory:
+	- Once the directory is created, you can access it through the Directory Service console.
+	- You can also use it with other AWS services like Amazon EC2, Amazon RDS, and Amazon Workspaces.
+-----------------------------------------------------------------------------------------------------------------------------------
+Q5. How to deploy Docker in ESC (Amazon Elastic Container Service)
+Steps:- 
+1. Search for Elastic Container Service and click on and go to Elastic Container Service Dashboard  
+2. under the ESC Click on Clusters and click on "Create Cluster" button
+3. cluster Configure
+	- Give the cluster name (i.e. myCluster)
+4. Choose the Infrastructure
+	- AWS Fargate(Serverless) or Amazon instances (use for large workloads)
+	- I select AWS Fargate
+5. Click the "Create" button
+6. Now click on Tasks definitions
+	- click on create new task definitions
+7. Task Definition Configuration 
+	- given the Task definition name
+	- Choose infrastructure requirement
+	- I choose AWS Fargate
+	- Choose OS :- I choose Linux/X86_64
+8. Specify the amount of CPU and memory to reverse for your task
+	- Choose CPU and Memory as your requirement
+9. Configure Container 1
+	- give the name of container
+	- give Image URL
+	- give port mappings
+		- container port no (80)
+		- Protocol (TCP)
+		- Port name and App protocol
+	- give resource allocation limits
+		- CPU
+		- GPU
+		- memory hard limit and memory soft limit
+	- Now Create task definition
+10. Now Click on deploy and Choose Run task
+	- Open your cluster
+	- click on run new task 
+	- Choose Fargate or EC2
+	- Select task definition
+	- Configure settings
+	- click on run task
+11. Verify and Access
+	- Ensure the task status is running 
+	- Access application :- Use public IP and Port for web access
+12. Clean Up
+	- stop running tasks in the ESC Console
+	- remove the cluster to free up resource
+-----------------------------------------------------------------------------------------------------------------------------------
+Q6. Create Auto Scaling groups
+1. Sign into AWS management console
+2. once logged in, then click on services at left corner an selecting the EC2 from the lists of services
+3. Under the EC2 Dashboard and click on auto Scaling groups
+4. click on Create auto Scaling group
+5. Given the name of auto scaling
+6. Select if you have existing launch template or create a launch template
+   *steps for Creating launch template
+    1. Given your template name and template version description
+    2. Choose your Amazon Machine Image as you need
+    3. Select instance type as you need
+    4. Create a new key pair for login your machine
+    5. Go to Network settings and configure security group
+    6. Configure Storage
+    7. Review your settings and configuration
+    8. Then Click on Create Launch Template
+7. Select just created launch template and click next
+8. Choose instance launch options and select VPC or leave by default
+9. choose Availability Zones and select 2 or more 
+10. Configure load balancing
+11. choose value for Health check grace period (120 second) and go to next
+12. Configure group size and scaling
+13. Choose your Desired capacity of instance
+14. Configure scaling
+	1  set Min Desired capacity
+  2  set max Desired capacity
+15 choose instance maintenance policy and go to next
+16 Click  on "Create auto Scaling Group" button
+=> if you want to give load on instance then we write below command on console
+17.Go to EC2 Dashboard and click any instance
+18 connect with IPV4 public IP
+19. Write the command on console
+    sudo su
+    yum update
+    yum install stress
+    stress -core 10000
+-----------------------------------------------------------------------------------------------------------------------------------
+Q7. Detailed steps to create an Application Load Balancer (ALB) in the AWS Management Console
+steps:-
+1. Sign in to the AWS Management Console
+2. Navigate to the EC2 Dashboard:
+   - Once logged in, go to the AWS Management Console and navigate to the EC2 dashboard by clicking on "Services" at the top left corner and selecting "EC2" from the list of services.
+3. Create 2 instances of Amazon Linux with SSH(22) and HTTP(80) port accessibility.
+ 	- Connect both instances individually and install Apache web server and create an index.html webpage through below commands:
+		yum update
+		yum install httpd -y
+		systemctl start httpd
+		systemctl enable httpd
+		chmod 777 /var/www/html/
+		vi /var/www/html/index.html
+        - Write “server1” as content for server1 index file and “server2” for server2 index file. Check both web pages are accessible through their public 	IPv4 in web browser
+4. Create Load Balancer:
+   - In the EC2 dashboard, under "Load Balancing", click on "Load Balancers".
+   - Click on the "Create Load Balancer" button.
+5. Select Load Balancer Type:
+   - Choose the "Application Load Balancer" option.
+   - Click on "Create" under the "Create Load Balancer" section.
+6. Configure Load Balancer Settings:
+   - Provide a name for your load balancer.
+   - Select the appropriate scheme for your load balancer (internet-facing or internal).
+   - Choose the VPC where your instances are located.
+   - Define the listener configuration by specifying the protocol (HTTP or HTTPS) and port (typically 80 for HTTP and 443 for HTTPS).
+7. Configure Security Settings:
+   - Select an existing security group or create a new one for your load balancer.
+   - Configure inbound rules to allow traffic on the listener port (e.g., HTTP or HTTPS) from the internet or your desired sources. 
+8. Configure Routing:
+   - Define the target group for your load balancer:
+     - If you have an existing target group, select it from the dropdown menu.
+     - Otherwise, click on "Create target group" to create a new one.
+     - Provide a name for the target group.
+     - Specify the protocol and port for communication with the instances (e.g., HTTP on port 80).
+     - Select the target type (instances, IP addresses, or Lambda functions).
+     - Configure health checks to monitor the health of your targets.
+     - Define targets by choosing instance IDs, IP addresses, or resource tags.
+     - create "target group" button
+9. Review and Create:
+   - Review the configuration settings you've chosen for your load balancer.
+   - Once you've reviewed everything, click on the "Create" button to create the load balancer.
+10. Wait for Provisioning:
+   - AWS will now provision your load balancer, which may take a few minutes. You can track the progress on the Load Balancers page.
+11. Access Load Balancer Details:
+   - Once the load balancer is created successfully, you can access its details from the Load Balancers page in the EC2 dashboard.
+-----------------------------------------------------------------------------------------------------------------------------------
+Q8. Create VPC 1 Public instance and 2 Private Instance
+Steps:-
+1. Sign in into AWS management Console
+2. Once logged in ,Then click on services at the left corner and search for VPC
+3. Click on Create VPC button
+4. Configure VPC
+	- choose Type of VPC (i.e. VPC only)
+	- provide name for VPC (i.e. Abhi-VPC)
+	- choose IPv4 manual input
+	- provide valid IP (I choose class A Ip :- 172.16.0.0/16)
+5. After that Click on "create" button
+6. Now go to VPC dashboard Then click on Subnets
+7. Now Create 2 subnets, subnet1 for public and subnet2 for private in VPC
+	- click on create subnet Button
+	- select VPC From dropdown menu
+	- choose Availability zone for both
+ 	- provide name for subnet1 (sub-public) & provide name for subnet2 (sub-private)
+	- IPv4 VPC CIDR block :- 172.16.0.0/24
+	- IPv4 VPC CIDR block :- 172.16.1.0/24
+8. create subnet button for both subnets
+9. Go to VPC dashboard then click internet gateways
+	*configure internet gateway
+	- go to internet gateway section
+	- click create internet gateway
+	- give the name for your internet gateway
+	- click on "create" button
+	- select the created internet gateway and click on action and Attach to VPC. 
+10. Now go to VPC Dashboard and click on Route tables and create route table
+	- provide the name for route tables 
+	- select the VPC 
+	- click on "create route table" button
+11. after that click on edit routes and give the destination over the internet and choose the internet gateway then click on save changes
+12. after that click edit subnet association and select your existing subnets
+13. after that click EC2 Dashboard
+14. create two instances
+	(i) public instance
+		- click launch instance
+		- choose AMI and select ubuntu
+		- choose instance type t2.micro
+		- create a new key pair	
+		- configure network Settings
+		- choose your just created VPC 
+		- select your public subnet1
+		- Ensure "auto-assign public IP" enable
+		- click on launch instance
+	(ii) private instance
+		- click launch instance
+		- choose AMI and select ubuntu
+		- choose instance type t2.micro
+		- create a new key pair	
+		- configure network Settings
+		- choose your VPC 
+		- select your private subnet
+		- Ensure "auto-assign public IP" disable
+		- Configure storage
+		- click on launch instance
+15. After you created both instances
+16. Go to instance Dashboard and click on public instance and we connect with public IPv4
+17. After successful connection, we access the private instance with following command
+	sudo su
+	vi privatekey.pem
+	chmod 400 privatekey.pem
+	ssh -i "privatekey.pem" ubuntu@private IP(private instance)
+	ping google.com
+-----------------------------------------------------------------------------------------------------------------------------------
+Q9. How to create Elastic Beanstalk Application using Node.js
+Steps:-
+1. Sign into AWS management Console after that
+2. once logged in, click on services at the top corner and Selecting the Elastic Beanstalk from the lists of services
+3. Click the "create Application" 
+4. Configure Environment 
+	- select server environment
+5. Enter a unique name for your application
+	- application tags optional
+6. Choose platform you want to use (i.e. Node.js, Python, Java, etc.)
+	- I select Node js
+	- Select platform version
+7. Configure application code
+	- Choose Sample application to use AWS's provided sample code.
+	- Or, upload your own code by selecting Upload your code and choosing the file.
+	- You can also Choose Public S3 URL if exist
+8. Instance Configuration
+      	- Choose the instance type 
+	- configuration more settings as you need.
+9. Configure services access
+	- Choose service role :- Create to use new service role or use an existing service role
+	- select EC2 key pair
+	- Choose your EC2 instance profile and go to next configuration
+10. Set up networking and database if you want to setup or leave by default and click to go next.
+11. Configure instance traffic and Scaling if you want to setup or leave by default and click to go next.
+12. Review your Configuration Setting after that Click on "submit" button.
+13. Access Your application 
+	- Wait for Deployment and Elastic Beanstalk will set up the Environment. This might take few time.
+	- once deployed, click on Application name just created and click on application domain links
+	- Now your web page is running
+-----------------------------------------------------------------------------------------------------------------------------------
+Q10. How to create RDS and Configure RDS and Access Database
+Step:- 
+1. Sign into AWS Management Console 
+2. Once logged, then click on services at left corner and selecting the RDS from the list of services.
+3. Click on RDS and go to Dashboard and click on Databases
+4. Click on "create Database" button
+5. Choose a Database creation Methods
+   - Select "Standard Create" for more detailed configuration
+   - Choose "Easy Create" for a simplified
+6. Select a database Engine
+   - Choose the database Engine you want to use (i.e. MySQL, Oracle)
+   - Select the version of the database
+7. Choose the Template as your requirement 
+   - I choose free tier
+   - for free tier Availability and durability are disabled
+8. Set DB instance identifier 
+	- Give a unique name for your database (e.g. "MyDatabase")
+9. Set The master Username(e.g. "Admin") and Password go to next configuration
+10. Choose the DB instance class as your requirement(e.g. , db.t3.micro)
+11. Configure Storage
+    - Choose Allocated Storage Size
+    - Enable Storage Auto Scaling if desired
+12. Configure Connectivity
+    - Choose Compute Resource (Don't connect to an EC2 or connect to an EC2)
+    - Select network type
+    - Choose default VPC or Exiting others and default Db subnet group
+    - Configure public access
+    - Choose exists VPC security groups or create new one
+	- click on "create security group" button
+	- allow inbound traffic on database port (e.g. 3306 for MySQL)
+	- click on "create" button
+    - Choose Availability Zone
+13. Choose Database Authentication
+14. Review your settings and click the "Create Database" button
+15. Access The Database
+ 	1. In the RDS dashboard, select DB instance
+ 	2. In the instance details, locate the endpoint (URL) and port number
+ 	3. Use database client or application to connect to the database
+ 	4. Use the endpoint, port, master username and password to establish the connection
+	such that  mysql -h abhi-db.cve6kmawqjj5.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+	or
+	Open SQL Electron.
+	Click on "New Connection".
+	Enter the following details:
+	Connection Name: Any name to identify this connection (e.g., "My RDS MySQL").
+	Server: The RDS endpoint (e.g., "mydatabase.123456789012.us-east-1.rds.amazonaws.com").
+	Port: The database port (e.g., 3306 for MySQL).
+	Database: The initial database name you specified (e.g., "mydatabase").
+	User: The master username you set (e.g., "admin").
+	Password: The master password you set.
+	Click "Connect".
+	Example SQL Query in SQL Electron
+	Once connected, you can run SQL queries to interact with your database. Here’s a simple example to create a table and insert data:
+-----------------------------------------------------------------------------------------------------------------------------------
+Q11. Create a Lambda function (IAM, DynamoDB, S3 Bucket ) 
+Steps:-
+1. Sign into AWS Management console
+2. once logged in, click on services at the top left corner and search for IAM and click on IAM of list of services.
+3. Now IAM Dashboard, click on roles and click the "Create role" button
+	- Choose the AWS service
+	- select lambada and click on next permission
+	- Search for AmazonDynamoDBFullAccess and select it
+	- give a role name (lambda-for-DynamoDB)
+	- review Your configuration settings and click the "create role" button
+4.Now again go to services and search for lambda and select it
+	- Go to lambda dashboard and click on Functions
+	- Now click on create function button
+	- Click on Author from scratch
+	- Give a name for Your Function  (i.e. lambda1)
+	- choose the language Which is used to write your function code (i.e. java, python, go, etc)
+	- I select Python3.6
+	- Choose or create an execution role (We are created role just)
+	- I choose Use an existing role and select your existing role
+	- Review Your Configure Setting and click on "Create Function".
+5. After create lambda function scroll down
+	- Go to function Code Section
+	- Put on your lambda function code (Python)
+	- In code dynamo Table same name as Dynamo Table
+	- Click on save button
+6. Now again go to services and search for S3 and select it
+	- give a unique name for your bucket
+	- Select region and configure settings as your requirements
+	- click on create bucket
+7. Now go to lambda dashboard and click on you created function
+	- click on add trigger and select S3
+	- choose your bucket
+	- Select event type and click on add button
+8. Now  go to DynamoDB Dashboard 
+	- click on Create table button 
+	- give a same name as you written in lambda function code
+	- Give a same partition key as you written in lambda function code
+	- click on create button
+9. Now go to S3 Dashboard 
+	- click on your bucket 
+	- click on upload and add file from computer
+	- click on "Upload" button 
+10. Now lambda function trigger and all information put on DynamoDB.
+-----------------------------------------------------------------------------------------------------------------------------------
+Q12. Create a SageMaker for Prediction of College admission for a student
+Steps:-
+1. Sign into AWS management Console
+2. once logged in, click on services at the top left corner and search the SageMaker and select the SageMaker from the list of services
+3. Go to left side corner of SageMaker Dashboard and click on Canvas.
+4. click on "lunch SageMaker Canvas" button
+5. Create S3 Bucket
+	- give a unique name for your bucket
+	- leave everything default
+	- click on "create bucket" button
+	- after that navigate to the bucket
+	- upload file with admission chance of student
+6. Now go to SageMaker canvas  
+	- click on Datasets and click on import
+	- Now you can upload data directly or link with S3 bucket
+	- click on S3 and select your bucket and click on .csv file
+	- then import data
+7. Now go to click on Models and create a new model
+	- give a name for your model(my-university-admission-predictor)
+	- then Click on "create button";
+8. After that select dataset
+9. now you go to select tab to built tab section 
+	- where you need to tell input and output
+	- Select a column to predict and I choose column chance_of_admission
+	- Now click on Quick built
+10. Now you go Analyze tab
+	- Now it take time 2 minutes to 15 minutes
+	- after that model has been trained
+	- able to see model performance
+	- here analyze the data
+	- also click on advanced metrics for see your prediction the data 
+11.  Now click on predict button 
+	- deploy model and make predictions
+	- either click on batch prediction or Single prediction 
+12. Now select Batch prediction
+	- go to Select a dataset to generate predictions
+	- click on "select dataset" button
+	- Now go to S3 bucket and upload new data for testing
+	- Same steps follow for this new data
+13. Now it will give the Prediction according the your data.
+-----------------------------------------------------------------------------------------------------------------------------------
+ Q13 Creating a launch template in AWS
+  *  Sign in to the AWS Management Console: Log in to your AWS account.
+  *  Navigate to EC2: Go to the EC2 dashboard.
+  *  Click on Launch Templates: Under the "Instances" section in the left sidebar, click on "Launch Templates".
+  *  Create Launch Template: Click on the "Create launch template" button.
+  *  Configure Template Details: Provide a name for your launch template, and optionally, a description.
+  *  Configure AMI and Instance Type: Choose the Amazon Machine Image (AMI) and instance type for your template.
+  *  Configure Instance Settings: Set instance details such as network settings, IAM role, monitoring options, and user data.
+  *  Configure Storage Settings: Specify the storage volumes and configurations for the instances launched with this template.
+  *  Configure Security Group and Key Pair: Set up security group and key pair settings for the instances.
+  *  Add Tags (Optional): Optionally, add tags to your launch template for better organization and management.
+  *  Review and Create: Review the configuration details and click "Create launch template" to create the template.
+  *  Use Launch Template: Once the launch template is created, you can use it when launching new instances. During the instance launch process, choose the option to launch using a launch template, and select the template you created.
+-----------------------------------------------------------------------------------------------------------------------------------
+Q14. Here are the detailed steps to set up an AWS Kinesis Data Stream with one producer Lambda function and one consumer Lambda function that uploads files to an S3 bucket:
+Step 1: Create an S3 Bucket
+        Navigate to the S3 Console:
+        Go to the AWS Management Console.
+        Open the Amazon S3 console.
+        Create a Bucket:
+        Click on "Create bucket".
+        Enter a unique bucket name.
+        Choose the region and configure other settings as required.
+        Click "Create bucket".
+Step 2: Create a Kinesis Stream
+        Navigate to the Kinesis Console:
+        Go to the AWS Management Console.
+        Open the Amazon Kinesis console.
+        Create a Data Stream:
+        Click on "Create data stream".
+        Enter a stream name.
+        Specify the number of shards.
+        Click "Create data stream".
+Step 3: Create an IAM Role for Lambda
+        Navigate to the IAM Console:
+        Go to the AWS Management Console.
+        Open the IAM console.
+        Create a Role:
+        Click on "Roles" in the sidebar, then click "Create role".
+        Select "AWS service" and choose "Lambda".
+        Attach the following policies:
+        AWSLambdaKinesisExecutionRole
+        AmazonS3FullAccess
+        Custom policies if additional permissions are needed.
+        Complete the role creation process and note the role ARN.
+Step 4: Create the Producer Lambda Function
+        Navigate to the Lambda Console:
+        Go to the AWS Management Console.
+        Open the AWS Lambda console.
+        Create a Lambda Function:
+        Click on "Create function".
+        Choose "Author from scratch".
+        Enter a function name (e.g., KinesisProducer).
+        Choose the runtime (e.g., Python 3.8).
+        Under "Permissions", choose the IAM role created earlier.
+        Click "Create function".
+        Write the Producer Code:
+        here write 
+        python
+        Copy code
+        Replace YourKinesisStreamName with your actual Kinesis stream name.
+        Deploy the code.
+Step 5: Create the Consumer Lambda Function
+        Create a Lambda Function:
+        Repeat the steps from the producer to create the consumer function (e.g., KinesisConsumer).
+        Write the Consumer Code:
+        here write
+        python
+        Copy code
+        Replace YourS3BucketName with your actual S3 bucket name.
+        Deploy the code.
+Step 6: Configure Event Source Mapping for Consumer
+        Add Event Source Mapping:
+        In the AWS Lambda console, go to the configuration page of the consumer function.
+        Click on "Add trigger".
+        Choose "Kinesis".
+        Select your Kinesis stream and configure the batch size and starting position.
+        Click "Add".
+Step 7: Test the Setup
+        Invoke the Producer Lambda Function:
+        In the AWS Lambda console, go to the producer function.
+        Click on "Test".
+        Create a new test event and invoke the function.
+        Check the S3 Bucket:
+        Go to your S3 bucket in the S3 console.
+        Verify that files are being uploaded by the consumer function.
+-----------------------------------------------------------------------------------------------------------------------------------
+Q15. Creating and running the container using Desktop Docker and custom build image
+  Part A: Create a Custom Node.js Application
+    app.js
+    const express = require('express');
+    const app = express();
+    const port = 3000;
+    app.get('/', (req, res) => {
+    res.send('Nodejs application running on container on localhost:3000');
+    });
+
+    app.listen(port, () => {
+    console.log(`App running on http://localhost:${port}`);
+    });
+
+    package.json
+    {
+        "name": "nodejs-container-app",
+        "version": "1.0.0",
+        "description": "A simple Node.js application running on a Docker container",
+        "main": "app.js",
+        "scripts": {
+            "start": "node app.js"
+        },
+        "dependencies": {
+            "express": "^4.17.1"
+        }
+    }
+Part B: Create the Dockerfile
+    Dockerfile
+    # Use the Node.js 20-alpine base image
+    FROM node:20-alpine
+
+    # Set the working directory to /home/app
+    WORKDIR /home/app
+
+    # Copy package.json and package-lock.json to the working directory
+    COPY package*.json ./
+
+    # Install the dependencies
+    RUN npm install
+
+    # Copy the rest of the application code to the working directory
+    COPY . .
+
+    # Expose port 3000
+    EXPOSE 3000
+
+    # Start the Node.js application
+    CMD ["npm", "start"]
+Part C: Docker Commands
+    Build the Image
+        docker build -t nodejs-container-app .
+    Create and Run the Container
+        docker run -d -p 3001:3000 --name my-nodejs-container nodejs-container-app
+    Display the Details of the Container
+        docker ps -a
+    Display the Logs of the Container
+        docker logs my-nodejs-container
+    Stop the Container
+        docker stop my-nodejs-container
+    Delete the Container
+        docker rm my-nodejs-container
+-----------------------------------------------------------------------------------------------------------------------------------
+Q16. Create Containers and deploy applications using Kubernetes minikubes
+Part A: Create Deployment and Service Components in YAML Format
+    1. nginx-deployment.yaml
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: nginx-deployment
+        spec:
+        replicas: 2
+        selector:
+            matchLabels:
+            app: nginx
+        template:
+            metadata:
+            labels:
+                app: nginx
+            spec:
+            containers:
+            - name: nginx
+                image: nginxdemos/hello:latest
+                ports:
+                - containerPort: 80
+    2. nginx-service.yaml
+        apiVersion: v1
+        kind: Service
+        metadata:
+        name: nginx-service
+        spec:
+        type: NodePort
+        ports:
+        - port: 8080
+            targetPort: 80
+            nodePort: 30001 # NodePort range is 30000-32767
+        selector:
+            app: nginx
+Part B: Commands to Perform Tasks on Minikube
+    1. Verify Minikube is Installed
+        minikube version
+    2. Create Cluster Using Minikube
+        minikube start
+    3. Check the Status of Minikube Cluster
+        minikube status
+    4. Deploy the Deployment and Service Components
+        kubectl apply -f nginx-deployment.yaml
+        kubectl apply -f nginx-service.yaml
+    5. Get Details of Pods and Services
+        kubectl get pods
+        kubectl get services
+    6. Run the Application Deployed
+        - Access the Nginx application using the NodePort service. You can get the URL using:
+        minikube service nginx-service --url
+    7. Stop the Minikube
+        minikube stop
+-----------------------------------------------------------------------------------------------------------------------------------
+Q17. Steps for Using AWS Key Management Service (KMS)
+AWS Key Management Service (KMS) is a managed service that makes it easy to create and control the encryption keys used to encrypt your data. Here's a step-by-step guide to using AWS KMS:
+Step 1: Create a Customer Master Key (CMK)
+    1. Navigate to AWS KMS Console:
+        Open the AWS Management Console.
+        In the search bar, type "KMS" and select "Key Management Service".
+    2. Create a Key:
+        In the AWS KMS console, click on "Create key".
+    3. Configure Key Type:
+        Select "Symmetric" for most use cases, as it is the simplest and most commonly used type.
+        Click "Next".
+    4. Configure Key Usage:
+        Choose "Encrypt and decrypt" (the default option).
+        Click "Next".
+    5. Define Key Administrative Permissions:
+        Specify which AWS IAM users and roles can administer the key.
+        Click "Next".
+    6. Define Key Usage Permissions:
+        Specify which AWS IAM users and roles can use the key in cryptographic operations.
+        Click "Next".
+    7. Review and Create:
+        Review your settings and click "Finish".
+Step 2: Use the CMK for Encryption and Decryption
+Encrypting Data
+    1. Using the AWS Management Console:
+        Go to the KMS console.
+        In the left pane, click on "Encrypt".
+    2.Specify Encryption Details:
+        Select the CMK you created.
+        Enter the plain text data you want to encrypt (or upload a file).
+        Click "Encrypt".
+    3.Retrieve Encrypted Data:
+        The console will display the Base64-encoded encrypted data.
+Decrypting Data
+    1. Using the AWS Management Console:
+        Go to the KMS console.
+        In the left pane, click on "Decrypt".
+    2. Specify Decryption Details:
+        Enter the encrypted data you want to decrypt (Base64-encoded).
+        Click "Decrypt".
+    3. Retrieve Decrypted Data:
+        The console will display the decrypted plain text.
+Step 3: Integrate KMS with AWS Services
+    Many AWS services can be configured to use KMS for encryption. Here are a few examples:
+
+Amazon S3
+    1. Encrypt an S3 Bucket:
+        Navigate to the S3 console.
+        Select the bucket you want to encrypt.
+        Go to the "Properties" tab.
+        Under "Default encryption", select "AWS Key Management Service key (SSE-KMS)".
+        Choose your KMS key from the list.
+        Save changes.
+Amazon EBS
+    1. Encrypt an EBS Volume:
+        Navigate to the EC2 console.
+        Select "Volumes" from the left pane.
+        Click "Create Volume".
+        Under "Encryption", select "Enable" and choose your KMS key.
+        Configure other settings and create the volume.
+AWS Lambda
+    1. Encrypt Environment Variables:
+        Navigate to the Lambda console.
+        Select the function you want to configure.
+        Go to the "Configuration" tab and then to "Environment variables".
+        Add an environment variable and click on the "Encryption configuration" button.
+        Select "Enable helpers for encryption in transit" and choose your KMS key.
+Step 4: Monitor and Audit KMS Keys
+    1. Enable CloudTrail:
+        AWS CloudTrail logs all KMS API requests, which helps in auditing key usage.
+        Navigate to the CloudTrail console.
+        Ensure that logging is enabled for your AWS account.
+    2. View Key Usage in CloudTrail:
+        In the CloudTrail console, you can search for events related to your KMS keys.
+        Use filters to find specific actions (e.g., Encrypt, Decrypt).
+Step 5: Rotate Keys
+    1.Enable Key Rotation:
+        Navigate to the KMS console.
+        Select the CMK you want to rotate.
+        In the "Key actions" menu, choose "Enable key rotation".
+        AWS will automatically rotate the key once every year.
+-----------------------------------------------------------------------------------------------------------------------------------
+12.12.Cloud Formation
+ANs:- step-by-Step Guide to Create a CloudFormation Stack
+1. Prepare Your CloudFormation Template
+    Write Your CloudFormation Template:
+      Create a CloudFormation template in YAML or JSON format.
+      Define the resources, such as EC2 instances, IAM roles, S3 buckets, etc., that you want to create.
+      Specify parameters, mappings, conditions, and outputs as needed.
+2. Open the AWS Management Console
+  Navigate to CloudFormation:
+    Go to the AWS Management Console and search for "CloudFormation" in the services search bar.
+    Click on CloudFormation to open the CloudFormation dashboard.
+3. Create a New Stack
+    Click on "Create Stack":
+      On the CloudFormation dashboard, click on Create stack.
+  Choose a Template:
+    Select Upload a template file.
+    Click on Choose file and select the CloudFormation template file you prepared earlier.
+    Alternatively, you can choose one of the sample templates provided by AWS.
+  Specify Stack Details:
+    Enter a Stack name for your CloudFormation stack.
+    Provide any parameter values required by your template.
+    Click Next.
+  Configure Stack Options (Optional):
+    Configure stack options such as tags, permissions, and role ARN.
+    Review the options and click Next.
+  Review and Create:
+    Review the stack details.
+    Check the box to acknowledge that CloudFormation might create IAM resources.
+    Click Create stack.
+4. Monitor Stack Creation
+  View Stack Status:
+    After creating the stack, you will be redirected to the stack details page.
+    The stack status will initially show as "CREATE_IN_PROGRESS".
+  Refresh Stack Status:
+    Refresh the stack status periodically until it changes to "CREATE_COMPLETE" or "CREATE_FAILED".
+5. Accessing Stack Resources
+    View Stack Resources:
+      Once the stack creation is complete, navigate to the Resources tab to view the resources created by CloudFormation.
+Accessing Resources:
+  Use the resources created by CloudFormation as needed.
+  For example, if you created an EC2 instance, you can SSH into the instance using its public IP address.
